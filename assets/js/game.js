@@ -73,6 +73,7 @@ var fight = function(enemyName) {
   };
 
 
+
 //START FUNCTION
 var startGame = function() {
 
@@ -90,7 +91,17 @@ var startGame = function() {
       enemyHealth = 50;
 
       fight(pickedEnemyName);
+if (playerHealth > 0 && i < enemyNames.length - 1){
+  //asks user if they want to shop before next round
+  var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+      
+      //if yes
+      if(storeConfirm) {
+      shop();
+      }
     }
+      
+ }
 
     else {
       window.alert("You have lost your robot in battle! Game Over!");
@@ -122,7 +133,60 @@ endGame();
     else {
       window.alert("Thank you for playing Robot Gladiators! Come back soon!");
     }
+      };
+
+
+      
+  //SHOP FUNCTION
+  var shop = function() {
+    // ask player what they'd like to do
+    var shopOptionPrompt = window.prompt(
+      "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+    );
+//use switch
+switch(shopOptionPrompt){
+  case "REFILL":
+  case "refill":
+    if(playerMoney >=7){
+    window.alert("refilling player's health by 20 for 7 dollars.");
+
+    //increase health/decrease money
+    playerHealth = playerHealth + 20;
+    playerMoney = playerMoney - 7;
+    }
+    else {
+      window.alert ("You don't have enough money!");
+    }
+    break;
+
+
+    case "UPGRADE":
+    case "upgrade":
+      if (playerMoney >=7){
+      window.alert("upgrading player's attack by 6 for 7 dollars.");
+      //increase attack/decrease money
+      playerAttack = playerAttack + 6;
+      playerMoney = playerMoney -7;
+      }
+      else{
+        window.alert("You don't have enough money!")
       }
 
+
+      break;
+      case "LEAVE": 
+      case "leave":
+        window.alert("leaving the store.");
+
+        //do nothing, so function will end
+        break;
+        default:window.alert("You did not pick a valid option. Try again.");
+        // call shop gain to got player to pick a valid option
+        shop();
+        break;        
+  }
+
+  };
+  //3.3.6. stopping point
 //START GAME ON LOAD-UP
 startGame();
